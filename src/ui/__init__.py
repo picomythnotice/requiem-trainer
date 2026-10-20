@@ -1,0 +1,1 @@
+"""CustomTkinter overlay for hotkey toggling."""
