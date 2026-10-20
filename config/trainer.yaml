@@ -1,0 +1,13 @@
+# Resident Evil Requiem Trainer configuration
+process_name: re_requiem.exe
+build_id: "1.0.4.0"
+auto_attach: true
+overlay:
+  enabled: true
+  opacity: 0.92
+hotkeys:
+  godmode: F1
+  infinite_ammo: F2
+  money_editor: F3
+  speed_hack: F4
+  inventory_unlock: F5
