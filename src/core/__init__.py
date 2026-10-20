@@ -1,0 +1,1 @@
+"""Core trainer engine and memory primitives."""
