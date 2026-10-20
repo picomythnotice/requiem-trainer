@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Requiem Trainer — Resident Evil Requiem Cheat Tool for Windows</title>
+<meta name="description" content="Requiem Trainer: infinite health, ammo and items, one-hit kill, god mode toggle, teleport and no-clip injector for Resident Evil Requiem on Windows 10 / 11.">
+<style>
+  :root{
+    --bg-0:#070912;
+    --bg-1:#0c1024;
+    --bg-2:#131a3a;
+    --ink:#eef1ff;
+    --muted:#a3aacb;
+    --line:rgba(140,160,255,.16);
+    --glass:rgba(20,26,54,.55);
+    --accent:#6f8bff;
+    --accent-2:#b56bff;
+    --accent-3:#3cf0c8;
+    --radius:16px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1100px 700px at 12% -8%, rgba(111,139,255,.20), transparent 62%),
+      radial-gradient(900px 620px at 92% 4%, rgba(181,107,255,.16), transparent 60%),
+      radial-gradient(1200px 800px at 50% 108%, rgba(60,240,200,.10), transparent 65%),
+      linear-gradient(175deg, var(--bg-0) 0%, var(--bg-1) 42%, var(--bg-2) 100%);
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:rgba(111,139,255,.38);color:#fff}
+
+  .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 22px}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:60;
+    backdrop-filter:blur(18px) saturate(150%);
+    -webkit-backdrop-filter:blur(18px) saturate(150%);
+    background:linear-gradient(180deg, rgba(12,16,36,.82), rgba(12,16,36,.58));
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    height:68px;
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+    font-weight:800;letter-spacing:.4px;font-size:1.02rem;
+    color:var(--ink);text-decoration:none;white-space:nowrap;
+  }
+  .brand-mark{
+    width:30px;height:30px;border-radius:9px;flex:none;
+    display:grid;place-items:center;font-size:15px;
+    background:linear-gradient(140deg,var(--accent),var(--accent-2));
+    box-shadow:0 0 18px rgba(111,139,255,.55);
+  }
+  .brand span b{
+    background:linear-gradient(92deg,#fff,#9fb2ff 60%,#c79bff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-links a{
+    color:var(--muted);text-decoration:none;font-size:.92rem;font-weight:500;
+    transition:color .2s ease;
+  }
+  .nav-links a:hover{color:#fff}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    font-family:inherit;font-weight:700;font-size:.94rem;
+    padding:12px 22px;border-radius:11px;border:1px solid transparent;
+    text-decoration:none;cursor:pointer;white-space:nowrap;
+    transition:transform .18s ease, box-shadow .22s ease, background .22s ease, border-color .22s ease;
+  }
+  .btn-primary{
+    color:#080b18;
+    background:linear-gradient(100deg,#8fa5ff,#b98bff 55%,#7ef0da);
+    box-shadow:0 10px 26px -10px rgba(120,150,255,.85), 0 0 0 1px rgba(255,255,255,.14) inset;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px -12px rgba(140,160,255,.95), 0 0 0 1px rgba(255,255,255,.22) inset}
+  .btn-ghost{
+    color:var(--ink);background:rgba(255,255,255,.045);
+    border-color:rgba(160,180,255,.28);
+  }
+  .btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.09);border-color:rgba(180,200,255,.5)}
+  .btn-sm{padding:9px 17px;font-size:.86rem;border-radius:10px}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:86px 0 68px;text-align:center;position:relative}
+  .pill{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:7px 16px;border-radius:999px;
+    font-size:.78rem;font-weight:600;letter-spacing:.6px;text-transform:uppercase;
+    color:#cfd8ff;
+    background:rgba(111,139,255,.10);
+    border:1px solid rgba(140,165,255,.32);
+    box-shadow:0 0 24px -6px rgba(111,139,255,.5) inset;
+    margin-bottom:26px;
+  }
+  .pill .dot{
+    width:7px;height:7px;border-radius:50%;background:var(--accent-3);
+    box-shadow:0 0 10px var(--accent-3);
+    animation:pulse 2.1s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.78)}}
+
+  h1{
+    margin:0 auto 20px;max-width:900px;
+    font-size:clamp(2.15rem,6vw,4.15rem);
+    line-height:1.06;letter-spacing:-1.6px;font-weight:800;
+    background:linear-gradient(96deg,#ffffff 4%,#a9b9ff 38%,#c99bff 66%,#7ef0da 96%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 70px rgba(140,160,255,.22);
+  }
+  .hero p.lead{
+    max-width:660px;margin:0 auto 34px;
+    color:var(--muted);font-size:1.06rem;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:44px}
+
+  .stats{
+    display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+    max-width:900px;margin:0 auto;
+  }
+  .chip{
+    display:flex;align-items:center;gap:9px;
+    padding:11px 18px;border-radius:12px;
+    font-size:.85rem;font-weight:600;color:#d6dcff;
+    background:rgba(255,255,255,.035);
+    border:1px solid var(--line);
+    backdrop-filter:blur(9px);
+    -webkit-backdrop-filter:blur(9px);
+  }
+  .chip i{font-style:normal;font-size:.98rem;filter:drop-shadow(0 0 6px rgba(120,150,255,.7))}
+  .chip small{color:var(--muted);font-weight:500}
+
+  /* ---------- SECTION HEADINGS ---------- */
+  section{padding:64px 0}
+  .sec-head{text-align:center;margin-bottom:46px}
+  .sec-kicker{
+    display:block;font-size:.76rem;font-weight:700;letter-spacing:2.4px;
+    text-transform:uppercase;color:#8fa1ff;margin-bottom:12px;
+  }
+  h2{
+    margin:0 0 12px;font-size:clamp(1.6rem,3.6vw,2.35rem);
+    letter-spacing:-.9px;font-weight:800;color:#f4f6ff;
+  }
+  .sec-head p{margin:0 auto;max-width:560px;color:var(--muted);font-size:.97rem}
+
+  /* ---------- FEATURES ---------- */
+  .grid{
+    display:grid;gap:20px;
+    grid-template-columns:repeat(3,1fr);
+  }
+  .card{
+    position:relative;overflow:hidden;
+    padding:28px 24px 26px;border-radius:var(--radius);
+    background:linear-gradient(170deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+    border:1px solid var(--line);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    transition:transform .25s ease, box-shadow .28s ease, border-color .28s ease;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    opacity:.9;
+  }
+  .card:nth-child(2n)::before{background:linear-gradient(90deg,var(--accent-2),var(--accent-3))}
+  .card:nth-child(3n)::before{background:linear-gradient(90deg,var(--accent-3),var(--accent))}
+  .card:hover{
+    transform:translateY(-7px);
+    border-color:rgba(160,180,255,.42);
+    box-shadow:0 26px 50px -24px rgba(90,120,255,.75), 0 0 0 1px rgba(160,180,255,.14) inset;
+  }
+  .card .ico{
+    display:inline-grid;place-items:center;
+    width:46px;height:46px;border-radius:12px;font-size:22px;
+    margin-bottom:16px;
+    background:rgba(111,139,255,.13);
+    border:1px solid rgba(140,165,255,.24);
+    box-shadow:0 0 22px -8px rgba(111,139,255,.85);
+  }
+  .card h3{margin:0 0 8px;font-size:1.06rem;font-weight:700;letter-spacing:-.2px;color:#f3f5ff}
+  .card p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.62}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{
+    position:relative;max-width:760px;margin:0 auto;
+    padding-left:74px;
+  }
+  .steps::before{
+    content:"";position:absolute;left:23px;top:16px;bottom:26px;width:3px;border-radius:3px;
+    background:linear-gradient(180deg,var(--accent),var(--accent-2) 52%,var(--accent-3));
+    box-shadow:0 0 20px rgba(111,139,255,.55);
+  }
+  .step{position:relative;padding:0 0 38px}
+  .step:last-child{padding-bottom:0}
+  .step-num{
+    position:absolute;left:-74px;top:-4px;
+    width:49px;height:49px;border-radius:50%;
+    display:grid;place-items:center;
+    font-weight:800;font-size:1.02rem;color:#080b18;
+    background:linear-gradient(140deg,#9fb2ff,#c79bff);
+    box-shadow:0 0 0 5px rgba(12,16,36,.92), 0 0 26px -4px rgba(140,160,255,.9);
+  }
+  .step h3{margin:0 0 6px;font-size:1.08rem;font-weight:700;color:#f3f5ff}
+  .step p{margin:0;color:var(--muted);font-size:.93rem}
+
+  /* ---------- FAQ ---------- */
+  .faq{max-width:790px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+  details{
+    border-radius:14px;overflow:hidden;
+    background:rgba(255,255,255,.035);
+    border:1px solid var(--line);
+    transition:border-color .22s ease, background .22s ease;
+  }
+  details[open]{border-color:rgba(160,180,255,.4);background:rgba(111,139,255,.075)}
+  summary{
+    list-style:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:18px 22px;
+    font-weight:650;font-size:.98rem;color:#eef1ff;
+    user-select:none;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{
+    content:"+";
+    flex:none;width:26px;height:26px;border-radius:8px;
+    display:grid;place-items:center;
+    font-size:1.18rem;font-weight:500;line-height:1;
+    color:#cfd8ff;background:rgba(140,165,255,.14);
+    border:1px solid rgba(140,165,255,.24);
+    transition:transform .26s ease, color .22s ease, background .22s ease;
+  }
+  details[open] summary::after{
+    content:"×";transform:rotate(180deg);
+    color:#7ef0da;background:rgba(60,240,200,.14);
+    border-color:rgba(60,240,200,.35);
+  }
+  details .answer{padding:0 22px 20px;color:var(--muted);font-size:.92rem;line-height:1.66}
+  details .answer strong{color:#dfe4ff;font-weight:650}
+
+  /* ---------- CTA BANNER ---------- */
+  .cta{
+    position:relative;overflow:hidden;text-align:center;
+    padding:58px 30px;border-radius:22px;
+    background:linear-gradient(165deg, rgba(111,139,255,.16), rgba(181,107,255,.09) 55%, rgba(60,240,200,.07));
+    border:1px solid rgba(160,180,255,.28);
+  }
+  .cta::before{
+    content:"";position:absolute;inset:-40% -10% auto;height:520px;
+    background:radial-gradient(closest-side, rgba(140,160,255,.45), transparent 72%);
+    pointer-events:none;
+  }
+  .cta > *{position:relative;z-index:1}
+  .cta h2{margin-bottom:12px;font-size:clamp(1.5rem,3.6vw,2.2rem)}
+  .cta p{max-width:560px;margin:0 auto 28px;color:#c3cbf0;font-size:.98rem}
+  .cta .meta{margin-top:20px;font-size:.78rem;color:#8f99c4;letter-spacing:.4px}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    margin-top:56px;padding:28px 0 34px;
+  }
+  .foot{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    font-size:.84rem;color:#8f99c4;
+  }
+  .foot a{color:#b9c4f0;text-decoration:none;font-weight:600;transition:color .2s ease}
+  .foot a:hover{color:#fff}
+  .foot .legal{max-width:620px;font-size:.76rem;color:#6d779e;line-height:1.55}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:960px){
+    .grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:640px){
+    .nav-inner{height:62px;gap:12px}
+    .nav-links{display:none}
+    .hero{padding:58px 0 46px}
+    h1{letter-spacing:-1px}
+    .hero-actions .btn{width:100%}
+    .grid{grid-template-columns:1fr}
+    section{padding:46px 0}
+    .steps{padding-left:62px}
+    .steps::before{left:19px}
+    .step-num{left:-62px;width:41px;height:41px;font-size:.92rem}
+    .cta{padding:42px 20px}
+    .foot{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark">🎯</span>
+      <span>Requiem<b>Trainer</b></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="https://gitscore.cc" target="_blank" rel="noopener">Download</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="pill"><span class="dot"></span> Resident Evil Requiem Trainer</div>
+      <h1>Survive Raccoon City Again — On Your Terms</h1>
+      <p class="lead">
+        A lightweight Windows trainer for Resident Evil Requiem. Toggle infinite health, ammo and items,
+        enable one-hit kill and god mode, or teleport and no-clip through the map with a single hotkey.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://gitscore.cc" target="_blank" rel="noopener">⬇ Download Requiem Trainer</a>
+        <a class="btn btn-ghost" href="https://gitscore.cc" target="_blank" rel="noopener">★ View on GitHub</a>
+      </div>
+      <div class="stats">
+        <div class="chip"><i>⬇</i> 84,200+ <small>downloads</small></div>
+        <div class="chip"><i>🏷</i> v2.4.1 <small>latest release</small></div>
+        <div class="chip"><i>🪟</i> Windows 10 / 11</div>
+        <div class="chip"><i>⚡</i> Free &amp; open source</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-kicker">Trainer Modules</span>
+        <h2>Six toggles. Total control.</h2>
+        <p>Every module is hotkey-driven, memory-safe, and can be switched on or off mid-fight without restarting the game.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="ico">❤️</div>
+          <h3>Infinite Health</h3>
+          <p>Lock your health bar at maximum so grabs, bites and boss slams never bring the run to an end.</p>
+        </article>
+        <article class="card">
+          <div class="ico">🔫</div>
+          <h3>Infinite Ammo</h3>
+          <p>Magazines refill instantly across handguns, shotguns and magnums — no reload downtime, no scavenging.</p>
+        </article>
+        <article class="card">
+          <div class="ico">🎒</div>
+          <h3>Infinite Items</h3>
+          <p>Herbs, sprays, key items and crafting materials stay at their cap so your inventory never runs dry.</p>
+        </article>
+        <article class="card">
+          <div class="ico">💀</div>
+          <h3>One-Hit Kill</h3>
+          <p>Any landed shot drops standard enemies instantly. Great for speedruns, theory-crafting and stress-free clears.</p>
+        </article>
+        <article class="card">
+          <div class="ico">🛡️</div>
+          <h3>God Mode Toggle</h3>
+          <p>A single keybind flips full damage immunity on and off, including environmental hazards and scripted hits.</p>
+        </article>
+        <article class="card">
+          <div class="ico">🌀</div>
+          <h3>Teleport &amp; No-Clip</h3>
+          <p>Save a position, jump back to it, or disable collision to fly through walls and inspect cut-off map geometry.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-kicker">Setup</span>
+        <h2>Running in under a minute</h2>
+        <p>No installers, no bundled runtimes, no account required. Just download, launch, and play.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Download the archive</h3>
+          <p>Grab the latest <strong>RequiemTrainer.zip</strong> from the release page and extract it to any folder outside your game directory.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Launch the game, then the trainer</h3>
+          <p>Start Resident Evil Requiem and load into a save. Run <strong>RequiemTrainer.exe</strong> as administrator so it can attach to the process.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Toggle features with hotkeys</h3>
+          <p>Use the on-screen panel or the default F1–F8 bindings. Every module shows a live active indicator and can be rebound.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-kicker">Questions</span>
+        <h2>Frequently asked</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>Is Requiem Trainer safe to run on my PC?</summary>
+          <div class="answer">The trainer is fully <strong>open source</strong>, so every line can be reviewed on the repository. It performs read/write memory operations on the game process only, ships no installers, and makes no network calls. Antivirus tools occasionally flag trainers generically — that is a heuristic, not a detection of malicious code.</div>
+        </details>
+        <details>
+          <summary>Will it work with the Steam and Epic versions of Resident Evil Requiem?</summary>
+          <div class="answer">Yes. The trainer detects supported game builds on <strong>Windows 10 and 11</strong> regardless of storefront. After a game patch, offsets may need an update — check the release notes for the build number the current version supports.</div>
+        </details>
+        <details>
+          <summary>Can I use it in online or co-op modes?</summary>
+          <div class="answer">No. The trainer is intended for <strong>single-player offline use only</strong>. Do not enable it in any multiplayer, leaderboard or cloud-save sync scenario. Using it online can get your account restricted, and the project does not support that use case.</div>
+        </details>
+        <details>
+          <summary>How do I rebind hotkeys or fix a feature that stopped working?</summary>
+          <div class="answer">Open the settings tab in the trainer panel and click any binding to remap it. If a module silently stops working after a game update, download the newest release from <a href="https://gitscore.cc" target="_blank" rel="noopener" style="color:#a9b9ff;font-weight:600;text-decoration:none">gitscore.cc</a> — offsets are refreshed with each supported patch.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section>
+    <div class
