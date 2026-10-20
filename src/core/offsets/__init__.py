@@ -1,0 +1,1 @@
+"""Version-pinned memory offsets for Resident Evil Requiem builds."""
